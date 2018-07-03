@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { Constants } from 'expo';
-import HomeScreenButton from "../buttons/HomeScreenButton";
+import HomeScreenButton from "../components/HomeScreenButton";
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -30,13 +30,13 @@ export default class HomeScreen extends Component {
                 </Text>
                 <Text
                     style={styles.lastGameTime}>
-                    {this.props.lastGameTime}
+                    8 HOURS AGO
                 </Text>
                 <View
                     style={styles.buttonContainerViewStyle}>
                     <HomeScreenButton
                         text="NEW GAME"
-                        trigger={() => console.log("New Game")}
+                        trigger={() => this.props.navigation.navigate("NewGame")}
                     />
                     <HomeScreenButton
                         text="HISTORY"
@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
         marginBottom: 36
     },
     lastGame: {
-        fontSize: 16,
+        fontSize: 18,
         color: 'white'
     },
     lastGameTime: {
-        fontSize: 12,
+        fontSize: 16,
         color: "#F9C375",
         marginBottom: 36
     },

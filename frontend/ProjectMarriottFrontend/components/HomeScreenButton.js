@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity , ImageBackground, StyleSheet} from 'react-native';
+import { Text, TouchableOpacity , ImageBackground, StyleSheet} from 'react-native';
 
 export default class HomeScreenButton extends Component {
     constructor(props) {
@@ -36,6 +36,7 @@ const style = StyleSheet.create({
     buttonTextStyle: {
         textAlign: "center",
         fontSize: 16,
-        color: "#F2F2F2"
+        color: "#F2F2F2",
+        fontWeight: "bold"
     }
 });

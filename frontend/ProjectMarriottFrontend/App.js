@@ -1,12 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
 import HomeScreen from './screens/HomeScreen';
+import NewGameScreen from "./screens/NewGameScreen";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <HomeScreen lastGameTime="8 hours ago"/>
-    );
-  }
-}
-
+export default createStackNavigator(
+    {
+        Home: {
+            screen: HomeScreen
+        },
+        NewGame: {
+            screen: NewGameScreen
+        }
+    },
+    {
+        initialRouteName: 'Home',
+        headerMode: 'none',
+        navigationOptions: {
+            headerVisible: false,
+        }
+    });
