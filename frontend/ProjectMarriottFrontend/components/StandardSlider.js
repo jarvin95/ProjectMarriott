@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Text, TextInput, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, ImageBackground, StyleSheet, Slider } from 'react-native';
 
-export default class StandardTextInput extends Component {
+export default class StandardSlider extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        this.state = { text: "" };
+        this.state = { value: 1 };
     }
 
     render() {
@@ -14,11 +14,14 @@ export default class StandardTextInput extends Component {
                     source={require("../graphics/text_input.png")}
                     style={styles.imageBackgroundStyle}>
                     <Text style={styles.titleStyle}>{this.props.title}</Text>
-                    <TextInput
-                        style={styles.sliderStyle}
-                        onChangeText={(text) => this.setState({text})}
-                        value={this.state.text}
-                        underlineColorAndroid="transparent"
+                    <Slider
+                        style={ styles.sliderStyle }
+                        thumbTintColor={ styles.sliderStyle.color }
+                        value={ this.state.value }
+                        minimumValue={ this.props.minVal }
+                        maximumValue={ this.props.maxVal }
+                        step={ this.props.step }
+                        onValueChange={(value) => { this.setState({value: value}) }}
                     />
                 </ImageBackground>
         )
@@ -46,8 +49,6 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     sliderStyle: {
-        textAlign: "center",
-        fontSize: 16,
-        color: "#333333"
+        color: "#F9C375"
     }
 });

@@ -12,7 +12,9 @@ module.exports = StyleSheet.create({
         paddingTop: Constants.statusBarHeight,
         height: Constants.statusBarHeight + 50,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        borderBottomLeftRadius: 16,
+        borderBottomRightRadius: 16
     },
     headerText: {
         fontSize: 16,
