@@ -6,7 +6,7 @@ export default class StandardPicker extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        this.state = { selected: this.props.defaultId };
+        this.state = { selectedValue: this.props.defaultId };
     }
 
     render() {
@@ -53,12 +53,12 @@ export default class StandardPicker extends Component {
                         alignItems: 'center',
                         flex: 1,
                         zIndex: 2,
-                        paddingLeft: 8
+                        paddingLeft: 12
                     }}
                 >
                     <Picker
                         prompt={ this.props.fieldName }
-                        selectedValue={ this.state.selectedId }
+                        selectedValue={ this.state.selectedValue }
                         style={{
                             flex: 1,
                         }}
@@ -72,7 +72,7 @@ export default class StandardPicker extends Component {
                             textAlign: 'center',
                         }}
                         onValueChange={(itemValue, itemIndex) => {
-                            this.setState({ selectedId: itemValue });
+                            this.setState({ selectedValue: itemValue });
                         }}
                     >
 

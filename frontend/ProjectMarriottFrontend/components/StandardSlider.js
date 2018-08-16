@@ -6,7 +6,7 @@ export default class StandardSlider extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        this.state = {value: 1};
+        this.state = { value: 1 };
     }
 
     render() {
@@ -84,9 +84,8 @@ export default class StandardSlider extends Component {
                             marginRight: 8
                         }}
                     >
-                        ${(this.state.value).toFixed(2)}
+                        {this.props.prefix}{(this.state.value).toFixed(2)}{this.props.suffix}
                     </Text>
-
                 </View>
             </View>
         )

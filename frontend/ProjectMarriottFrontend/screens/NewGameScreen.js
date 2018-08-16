@@ -8,28 +8,15 @@ import BigGreenButton from "../components/BigGreenButton";
 import {colorGold} from "../StyleConstants";
 import StandardPicker from "../components/StandardPicker";
 
+const playerList = require('../reducers/player_list');
 const styles = require('../StandardStyle');
 
-const choicePlayers =
-    [
-        {
-            value: '1',
-            label: 'Jarvin',
-        },
-        {
-            value: '2',
-            label: 'DHo',
-        },
-        {
-            value: '3',
-            label: 'Rach',
-        },
-        {
-            value: '4',
-            label: 'Steph',
-        }
-    ];
-
+const choicePlayers = playerList.map((player) => {
+    return {
+        value: player.id,
+        label: player.name,
+    }
+});
 
 export default class NewGameScreen extends Component {
     render() {
@@ -37,26 +24,34 @@ export default class NewGameScreen extends Component {
             <View style={styles.appContainer}>
                 <StandardHeader headerText="NEW GAME"/>
                 <View style={styles.mainContainer}>
-                    <StandardTextInput fieldName="GAME TITLE"/>
+                    <StandardTextInput
+                        ref={ (textInputRoundTitle) => { this.textInputRoundTitle = textInputRoundTitle; } }
+                        fieldName="ROUND TITLE"
+                    />
                     <StandardSwitcher
+                        ref={ (switcherShooterPay) => { this.switcherShooterPay = switcherShooterPay; } }
                         fieldName="SHOOTER PAY"
                         trueVal="Shooter Pay"
                         falseVal="Non Shooter Pay"
                         default={false}
                     />
                     <StandardSlider
+                        ref={ (sliderBetAmount) => { this.sliderBetAmount = sliderBetAmount; } }
                         fieldName="BET AMOUNT"
                         minVal="0.10"
                         maxVal="5.00"
                         initVal="0.50"
                         step="0.10"
+                        prefix="$"
                     />
                     <StandardSlider
+                        ref={ (sliderZimoBonus) => { this.sliderZimoBonus = sliderZimoBonus; }}
                         fieldName="ZIMO BONUS"
                         minVal="0.10"
                         maxVal="5.00"
                         initVal="2.00"
                         step="0.10"
+                        prefix="$"
                     />
 
                     <View
@@ -68,12 +63,14 @@ export default class NewGameScreen extends Component {
                         }}
                     >
                         <StandardPicker
+                            ref={ (pickerNorth) => { this.pickerNorth = pickerNorth; } }
                             fieldName="North Player"
                             choices={ choicePlayers }
                             defaultId={1}
                         />
 
                         <StandardPicker
+                            ref={ (pickerEast) => { this.pickerEast = pickerEast; } }
                             fieldName="East Player"
                             choices={ choicePlayers }
                             defaultId={1}
@@ -89,12 +86,14 @@ export default class NewGameScreen extends Component {
                         }}
                     >
                         <StandardPicker
+                            ref={ (pickerWest) => { this.pickerWest = pickerWest; } }
                             fieldName="West Player"
                             choices={ choicePlayers }
                             defaultId={1}
                         />
 
                         <StandardPicker
+                            ref={ (pickerSouth) => { this.pickerSouth = pickerSouth; } }
                             fieldName="South Player"
                             choices={ choicePlayers }
                             defaultId={1}
@@ -105,36 +104,36 @@ export default class NewGameScreen extends Component {
                         text="CREATE NEW GAME"
                         textColor={colorGold}
                         width={300}
-                        trigger={() => this.props.navigation.navigate("TrackGame",
-                            {
-                                newGame: true,
+                        trigger={() => {
+                            const payload = {
+                                settings: {
+                                    roundTitle: this.textInputRoundTitle.state.inputText,
+                                    shooterPay: this.switcherShooterPay.state.switch,
+                                    betAmount: this.sliderBetAmount.state.value,
+                                    zimoBonus: this.sliderZimoBonus.state.value,
+                                },
                                 players: {
                                     eastUser: {
-                                        userId: 1,
-                                        userName: 'Jarvin'
+                                        userId: this.pickerEast.state.selectedValue
                                     },
                                     southUser: {
-                                        userId: 2,
-                                        userName: 'DHo'
+                                        userId: this.pickerSouth.state.selectedValue
                                     },
                                     westUser: {
-                                        userId: 3,
-                                        userName: 'Rach'
+                                        userId: this.pickerWest.state.selectedValue
                                     },
                                     northUser: {
-                                        userId: 4,
-                                        userName: 'Steph'
+                                        userId: this.pickerNorth.state.selectedValue
                                     }
                                 },
                                 status: {
-                                    currentWind: 'north',
-                                    currentGameInWind: 'north',
+                                    currentWind: 'east',
+                                    currentGameInWind: 'east',
                                     repeat: 0
                                 },
-                                settings: {
-                                    gameTitle: 'Hello'
-                                }
-                            })}
+                            };
+                            this.props.navigation.navigate("TrackGame", payload);
+                        }}
                     />
                 </View>
             </View>

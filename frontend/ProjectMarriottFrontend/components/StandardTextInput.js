@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { View, TextInput, Text } from 'react-native';
 import { colorGold, colorGreen, colorMahjongPaper } from "../StyleConstants";
-import { connect } from 'react-redux';
 
-class StandardTextInput extends Component {
+export default class StandardTextInput extends Component {
     constructor(props) {
         super(props);
-        this.props = props;
+        this.props = props;;
     }
+
+    state = {
+        inputText: ""
+    };
 
     render() {
         return (
@@ -70,8 +73,3 @@ class StandardTextInput extends Component {
         );
     }
 }
-
-const mapStateToProps = ({ inputText }) => ({ inputText });
-// second inputText equivalent to inputText: inputText
-
-export default connect(mapStateToProps)(StandardTextInput)

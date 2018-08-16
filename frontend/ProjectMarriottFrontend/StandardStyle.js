@@ -18,7 +18,7 @@ module.exports = StyleSheet.create({
         borderBottomRightRadius: 16
     },
     headerText: {
-        fontSize: 16,
+        fontSize: 18,
         color: "#F9C375",
         textAlign: "center",
         fontWeight: "bold"
