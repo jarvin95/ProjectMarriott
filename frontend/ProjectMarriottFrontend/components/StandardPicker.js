@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, Slider, View} from 'react-native';
-import {colorGold, colorGreen, colorMahjongPaper} from "../StyleConstants";
+import {Text, View, StyleSheet, Picker} from 'react-native';
+import {colorFadedGreen, colorGold, colorGreen, colorMahjongPaper} from "../StyleConstants";
 
-export default class StandardSlider extends Component {
+export default class StandardPicker extends Component {
     constructor(props) {
         super(props);
         this.props = props;
-        this.state = {value: 1};
+        this.state = { selected: this.props.defaultId };
     }
 
     render() {
@@ -14,8 +14,10 @@ export default class StandardSlider extends Component {
             <View
                 style={{
                     flexDirection: 'row',
-                    alignSelf: 'stretch',
-                    padding: 8
+                    alignSelf: 'center',
+                    flex: 1,
+                    padding: 8,
+                    width: this.props.width
                 }}
                 margin={5}
                 marginTop={10}
@@ -37,7 +39,7 @@ export default class StandardSlider extends Component {
                         zIndex: 3
                     }}
                 >
-                    {this.props.fieldName}
+                    { this.props.fieldName }
                 </Text>
 
                 <View
@@ -50,45 +52,46 @@ export default class StandardSlider extends Component {
                         alignSelf: 'stretch',
                         alignItems: 'center',
                         flex: 1,
-                        zIndex: 2
+                        zIndex: 2,
+                        paddingLeft: 8
                     }}
                 >
-
-                    <Slider
-                        thumbTintColor={colorGreen}
-                        value={this.state.value}
-                        minimumValue={parseFloat(this.props.minVal)}
-                        maximumValue={parseFloat(this.props.maxVal)}
-                        step={parseFloat(this.props.step)}
-                        value={parseFloat(this.props.initVal)}
-                        onValueChange={(value) => {
-                            this.setState({value: value})
-                        }}
+                    <Picker
+                        prompt={ this.props.fieldName }
+                        selectedValue={ this.state.selectedId }
                         style={{
-                            flexDirection: 'row',
-                            flex: 7
-                        }}
-                    />
-
-                    <Text
-                        style={{
-                            fontSize: 16,
-                            textAlign: 'right',
                             flex: 1,
-                            flexDirection: 'row',
+                        }}
+                        mode='dropdown'
+                        itemStyle={{
+                            backgroundColor: colorGreen,
                             alignSelf: 'center',
-                            textAlignVertical: 'center',
-                            height: 40,
+                        }}
+                        itemTextStyle={{
                             color: colorGreen,
-                            fontWeight: 'bold',
-                            marginRight: 8
+                            textAlign: 'center',
+                        }}
+                        onValueChange={(itemValue, itemIndex) => {
+                            this.setState({ selectedId: itemValue });
                         }}
                     >
-                        ${(this.state.value).toFixed(2)}
-                    </Text>
 
+                        {
+                            this.props.choices.map((item) => {
+                                return (
+                                    <Picker.Item
+                                        key={item.value}
+                                        label={item.label}
+                                        value={item.value}
+                                    />
+                                );
+                            })
+                        }
+
+                    </Picker>
                 </View>
             </View>
-        )
+        );
     }
 }
+

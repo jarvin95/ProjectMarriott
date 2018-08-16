@@ -1,12 +1,40 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import Expo from 'expo';
 import { Constants } from 'expo';
-import HomeScreenButton from "../components/HomeScreenButton";
+import BigGreenButton from "../components/BigGreenButton";
+import {colorMahjongPaper} from "../StyleConstants";
+import bigZhong from '../graphics/homescreen_zhong.png';
+
+const cacheImages = (images) => {
+    return images.map(image => {
+        if (typeof(image) === 'string') {
+            return Image.prefetchImage(image)
+        }
+        else {
+            return Expo.Asset.fromModule(image).downloadAsync();
+        }
+    })
+};
 
 export default class HomeScreen extends Component {
+
     constructor(props) {
         super(props);
         this.props = props;
+        this.state = {
+            appIsReady: false,
+        };
+    }
+
+    componentWillMount() {
+        this._loadAssetAsync();
+    }
+
+    async _loadAssetAsync() {
+        const imageAssets = cacheImages([bigZhong]);
+        await Promise.all([...imageAssets]);
+        this.setState({ appIsReady: true});
     }
 
     render() {
@@ -22,7 +50,7 @@ export default class HomeScreen extends Component {
                 </Text>
                 <Image
                     style={styles.zhong}
-                    source={require('../graphics/homescreen_zhong.png')}
+                    source={bigZhong}
                 />
                 <Text
                     style={styles.lastGame}>
@@ -34,16 +62,19 @@ export default class HomeScreen extends Component {
                 </Text>
                 <View
                     style={styles.buttonContainerViewStyle}>
-                    <HomeScreenButton
+                    <BigGreenButton
                         text="NEW GAME"
+                        textColor={colorMahjongPaper}
                         trigger={() => this.props.navigation.navigate("NewGame")}
                     />
-                    <HomeScreenButton
+                    <BigGreenButton
                         text="HISTORY"
+                        textColor={colorMahjongPaper}
                         trigger={() => console.log("History")}
                     />
-                    <HomeScreenButton
+                    <BigGreenButton
                         text="PLAYERS"
+                        textColor={colorMahjongPaper}
                         trigger={() => console.log("Players")}
                     />
                 </View>
@@ -82,7 +113,7 @@ const styles = StyleSheet.create({
         borderRadius: 24,
         elevation: 1,
         flexDirection: "column",
-        padding: 8,
+        padding: 16,
         alignItems: "center",
         justifyContent: "center"
     },

@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Constants} from "expo";
+import {colorMahjongPaper} from "./StyleConstants";
 
 module.exports = StyleSheet.create({
     appContainer: {
@@ -19,7 +20,8 @@ module.exports = StyleSheet.create({
     headerText: {
         fontSize: 16,
         color: "#F9C375",
-        textAlign: "center"
+        textAlign: "center",
+        fontWeight: "bold"
     },
     playerNameText: {
         fontSize: 18,
@@ -28,9 +30,9 @@ module.exports = StyleSheet.create({
     },
     mainContainer: {
         flex: 1,
-        backgroundColor: "#F2F2F2",
+        backgroundColor: colorMahjongPaper,
         flexDirection: "column",
         alignItems: "center",
         padding: 16
-    }
+    },
 });
