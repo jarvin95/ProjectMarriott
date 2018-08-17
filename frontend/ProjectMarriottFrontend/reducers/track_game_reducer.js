@@ -1,13 +1,6 @@
 import { NEW_GAME, CREATE_ROUND } from '../actions/types';
 
-const INITIAL_STATE = {
-    currentUserId: 1,
-    currentRoundId: 0,
-    currentWindId: 0,
-    currentGameId: 0,
-};
-
-export default (state = INITIAL_STATE, action) => {
+export default (state = {}, action) => {
     switch (action.type) {
         case NEW_GAME: {
             return {...state, navigationAction: NEW_GAME}
